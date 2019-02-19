@@ -1,0 +1,53 @@
+
+v1
+BLACK AND WHITE 
+- everything is about luminescence there is no hue
+- no expectation of color bleeding due to refraction (no natural ...)
+
+* means v2 or later
+
+types of rays used for rendering
+- [ray0] direct eye through pixel ray to determine what the camera is looking at
+- [ray1] from ray0's destination, draw a ray to the light source
+----- for shadowing, value will either be 0 or 1 (can it reach the light source)
+- *[ray2] color bleeding (from destination to nearby objects)
+- [ray3] reflection (draw ray at angle of incidence)
+- *[ray4] refraction (drawing rays through destination object to start a new ray chain)
+- *[ray5] INTERNAL REFLECTION (Sanjana insists refraction inside object has a special name)
+
+
+hints:
+- single ray can hint at other ray values due to locality
+
+
+
+flow for drawing:
+    draw ray0 (x1)
+        source: camera position, angle determined by pixel location on screen 
+        destination: first surface that ray hits
+    draw ray1 (xN | N = number of light sources)
+        source: ray0 destination
+        destination: each light source 
+    draw ray3 (x1)
+        source: ray0 destination
+        destination: (angle of incidence)
+        ** this means ray3 spawns its own ray1s
+
+        
+        
+Initial 
+
+<foo()>
+
+test:
+    1) get parameters
+    2) result = foo(params)
+    3) get EXPECTED results (from file)
+    4) assert(result == EXPECTED)
+
+
+Milestone 1
+    single sphere, single light source, static camera 
+        MEASURE: correct shadowing on the sphere
+
+
